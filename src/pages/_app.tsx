@@ -5,6 +5,7 @@ import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import Head from 'next/head'
 import theme from '../constants/theme'
+import Header from '../components/Header'
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -14,6 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 <title>Story Poker</title>
             </Head>
             <ThemeProvider theme={theme}>
+                <Header/>
                 <main>
                     <Component {...pageProps}/>
                 </main>
