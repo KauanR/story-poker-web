@@ -1,15 +1,13 @@
 import { AppBar, Button, Toolbar, Typography } from '@mui/material'
-import DryCleaningIcon from '@mui/icons-material/DryCleaning'
-import { Buttons, Spacer, temp_logoIcon, temp_logoText } from './styles'
+import { Buttons, Spacer, temp_logoText } from './styles'
 import Link from 'next/link'
 
 const Header = () => {
     return (
         <AppBar position='static'>
             <Toolbar>
-                <DryCleaningIcon sx={temp_logoIcon}/>
                 <Typography variant='h6' component='a' href='/' sx={temp_logoText}>
-                    logo
+                    Story Poker
                 </Typography>
 
                 <Spacer/>
