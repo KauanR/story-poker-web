@@ -63,7 +63,7 @@ const SignUp: NextPage = () => {
                                             <InputAdornment position='start'> <PersonIcon/> </InputAdornment>
                                         )
                                     }}
-                                    sx={{ width: '80%' }}
+                                    fullWidth
                                 />
 
                                 <TextField
@@ -75,7 +75,7 @@ const SignUp: NextPage = () => {
                                             <InputAdornment position='start'> <EmailIcon/> </InputAdornment>
                                         )
                                     }}
-                                    sx={{ width: '80%' }}
+                                    fullWidth
                                 />
 
                                 <TextField
@@ -89,12 +89,12 @@ const SignUp: NextPage = () => {
                                         endAdornment: (
                                             <InputAdornment position='start'>
                                                 <IconButton onClick={() => setShowPassword(!showPassword)}>
-                                                    { showPassword ? <VisibilityOff /> : <Visibility /> }
+                                                    { showPassword ? <Visibility /> : <VisibilityOff /> }
                                                 </IconButton>
                                             </InputAdornment>
                                         )
                                     }}
-                                    sx={{ width: '80%' }}
+                                    fullWidth
                                 />
 
 
