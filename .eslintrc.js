@@ -36,6 +36,7 @@ module.exports = {
         semi: [
             'warn',
             'never'
-        ]
+        ],
+        '@typescript-eslint/no-explicit-any': 'off'
     }
 }
