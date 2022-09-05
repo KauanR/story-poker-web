@@ -6,6 +6,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import Head from 'next/head'
 import theme from '../constants/theme'
 import Header from '../components/Header'
+import Background from '../components/Background'
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -16,9 +17,13 @@ export default function App({ Component, pageProps }: AppProps) {
             </Head>
             <ThemeProvider theme={theme}>
                 <Header/>
+
                 <main>
                     <Component {...pageProps}/>
                 </main>
+
+                <Background/>
+
                 <CssBaseline />
             </ThemeProvider>
         </>
