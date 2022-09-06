@@ -1,9 +1,9 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import DashboardContent from '../../modules/dashboard'
+import Dashboard from '../../components/dashboard'
 
-const Dashboard: NextPage = () => {
-    return <DashboardContent />
+const DashboardPage: NextPage = () => {
+    return <Dashboard />
 }
 
-export default Dashboard
+export default DashboardPage

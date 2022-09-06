@@ -1,14 +1,14 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import RoomContent from '../../modules/room'
+import Room from '../../components/room'
 
-const Room: NextPage = () => {
+const RoomPage: NextPage = () => {
 
     const router = useRouter()
     const { roomId } = router.query
 
-    return <RoomContent roomId={roomId} />
+    return <Room roomId={roomId} />
 }
 
-export default Room
+export default RoomPage

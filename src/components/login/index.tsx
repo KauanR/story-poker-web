@@ -3,17 +3,14 @@ import { Button, Card, CardContent, IconButton, InputAdornment, Typography } fro
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import { FormValues } from './types/form-values'
-import TextField from '../../shared/TextField'
+import TextField from '../common/TextField'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import PersonIcon from '@mui/icons-material/Person'
 import EmailIcon from '@mui/icons-material/Email'
 import KeyIcon from '@mui/icons-material/Key'
 import styles from './styles.module.scss'
 import Link from 'next/link'
 
 const formSchema = Yup.object().shape({
-    name: Yup.string()
-        .required('Name is required'),
     email: Yup.string()
         .email('It needs to be a valid email')
         .required('Email is required'),
@@ -21,8 +18,7 @@ const formSchema = Yup.object().shape({
         .required('Password is required')
 })
 
-const SignUpContent = () => {
-
+const Login = () => {
     const [showPassword, setShowPassword] = useState(false)
 
     function formSubmit(values: FormValues): void {
@@ -34,15 +30,14 @@ const SignUpContent = () => {
             <Card sx={{width: '35vw'}}>
                 <CardContent>
                     <Typography variant='h5' textAlign='center'>
-                        Sign Up!
+                       Welcome back!
                     </Typography>
                     <Typography variant='body2' color='text.secondary' textAlign='center' sx={{mb: '2rem'}}>
-                        Let&apos;s Get Started! Create an account to get all the features
+                        Log in to your existing account of Story Poker
                     </Typography>
 
                     <Formik
                         initialValues={{
-                            name: '',
                             email: '',
                             password: ''
                         } as FormValues}
@@ -53,18 +48,6 @@ const SignUpContent = () => {
                     >
                         { formProps => (
                             <Form className={styles.form}>
-                                <TextField
-                                    name='name'
-                                    label='Name'
-                                    type='text'
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position='start'> <PersonIcon/> </InputAdornment>
-                                        )
-                                    }}
-                                    fullWidth
-                                />
-
                                 <TextField
                                     name='email'
                                     label='Email'
@@ -96,13 +79,26 @@ const SignUpContent = () => {
                                     fullWidth
                                 />
 
+                                <Link href='/forgot-password'>
+                                    <Typography 
+                                        component='a' 
+                                        variant='body2'
+                                        sx={{
+                                            alignSelf: 'flex-end',
+                                            color: 'primary.main',
+                                            cursor: 'pointer',
+                                        }}
+                                    >
+                                        Forgot password?
+                                    </Typography>
+                                </Link>
 
                                 <Button 
                                     variant='contained' 
                                     type='submit'
                                     disabled={!formProps.isValid}
                                 >
-                                    Create
+                                    Log in
                                 </Button>
                             </Form>
                         )}
@@ -112,9 +108,9 @@ const SignUpContent = () => {
 
             <div className={styles.redirect}>
                 <Typography variant='body2'>
-                    Already have an account?
+                    Don&apos;t have an account? 
                 </Typography>
-                <Link href='/login'>
+                <Link href='/sign-up'>
                     <Typography 
                         variant='body2' 
                         component='a' 
@@ -124,7 +120,7 @@ const SignUpContent = () => {
                             ml: '.25rem'
                         }}
                     >
-                        Login
+                        Sign Up
                     </Typography>
                 </Link>
             </div>
@@ -133,4 +129,4 @@ const SignUpContent = () => {
     )
 }
 
-export default SignUpContent
+export default Login

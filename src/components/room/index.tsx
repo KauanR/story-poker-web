@@ -4,7 +4,7 @@ type Props = {
     roomId: string | string[] | undefined
 }
 
-const RoomContent = ({ roomId }: Props) => {
+const Room = ({ roomId }: Props) => {
     return (
         <>
             <Typography variant='h5'>
@@ -17,4 +17,4 @@ const RoomContent = ({ roomId }: Props) => {
     )
 }
 
-export default RoomContent
+export default Room

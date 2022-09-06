@@ -1,9 +1,9 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import LoginContent from '../../modules/login'
+import Login from '../../components/login'
 
-const Login: NextPage = () => {
-    return <LoginContent/>
+const LoginPage: NextPage = () => {
+    return <Login/>
 }
 
-export default Login
+export default LoginPage

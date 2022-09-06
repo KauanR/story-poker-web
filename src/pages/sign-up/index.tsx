@@ -1,9 +1,9 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import SignUpContent from '../../modules/sign-up'
+import SignUp from '../../components/sign-up'
 
-const SignUp: NextPage = () => {
-    return <SignUpContent/>
+const SignUpPage: NextPage = () => {
+    return <SignUp/>
 }
 
-export default SignUp
+export default SignUpPage

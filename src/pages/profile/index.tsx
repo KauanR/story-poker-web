@@ -1,9 +1,9 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import ProfileContent from '../../modules/profile'
+import Profile from '../../components/profile'
 
-const Profile: NextPage = () => {
-    return <ProfileContent />
+const ProfilePage: NextPage = () => {
+    return <Profile />
 }
 
-export default Profile
+export default ProfilePage
