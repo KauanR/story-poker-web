@@ -1,14 +1,14 @@
 import React from 'react'
 import { Typography } from '@mui/material'
 
-const DashboardContent = () => {
+const Profile = () => {
     return (
         <>
             <Typography variant='h5'>
-                Hey, i&apos;m on Dashboard page
+                Hey, i&apos;m on Profile page
             </Typography>
         </>
     )
 }
 
-export default DashboardContent
+export default Profile
