@@ -1,15 +1,9 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { Typography } from '@mui/material'
+import ProfileContent from '../../modules/profile'
 
 const Profile: NextPage = () => {
-    return (
-        <>
-            <Typography variant='h5'>
-                Hey, i&apos;m on Profile page
-            </Typography>
-        </>
-    )
+    return <ProfileContent />
 }
 
 export default Profile

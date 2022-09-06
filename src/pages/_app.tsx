@@ -5,8 +5,8 @@ import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import Head from 'next/head'
 import theme from '../constants/theme'
-import Header from '../components/Header'
-import Background from '../components/Background'
+import Header from '../shared/Header'
+import Background from '../shared/Background'
 
 export default function App({ Component, pageProps }: AppProps) {
 
