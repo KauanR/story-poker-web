@@ -9,6 +9,7 @@ import EmailIcon from '@mui/icons-material/Email'
 import KeyIcon from '@mui/icons-material/Key'
 import styles from './styles.module.scss'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const formSchema = Yup.object().shape({
     email: Yup.string()
@@ -19,10 +20,14 @@ const formSchema = Yup.object().shape({
 })
 
 const Login = () => {
+
+    const router = useRouter()
+
     const [showPassword, setShowPassword] = useState(false)
 
     function formSubmit(values: FormValues): void {
         console.log(values)
+        router.push('/dashboard')
     }
 
     return (
