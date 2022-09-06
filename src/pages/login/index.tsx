@@ -1,15 +1,9 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { Typography } from '@mui/material'
+import LoginContent from '../../modules/login'
 
 const Login: NextPage = () => {
-    return (
-        <>
-            <Typography variant='h5'>
-                Hey, i&apos;m on Login page
-            </Typography>
-        </>
-    )
+    return <LoginContent/>
 }
 
 export default Login

@@ -1,23 +1,14 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { Typography } from '@mui/material'
+import RoomContent from '../../modules/room'
 
 const Room: NextPage = () => {
 
     const router = useRouter()
     const { roomId } = router.query
 
-    return (
-        <>
-            <Typography variant='h5'>
-                Hey, i&apos;m on Room page
-            </Typography>
-            <Typography variant='body1'>
-                And the room id is: {roomId}
-            </Typography>
-        </>
-    )
+    return <RoomContent roomId={roomId} />
 }
 
 export default Room

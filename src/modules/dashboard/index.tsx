@@ -1,15 +1,14 @@
 import React from 'react'
-import type { NextPage } from 'next'
 import { Typography } from '@mui/material'
 
-const SignUp: NextPage = () => {
+const DashboardContent = () => {
     return (
         <>
             <Typography variant='h5'>
-                Hey, i&apos;m on Sign Up page
+                Hey, i&apos;m on Dashboard page
             </Typography>
         </>
     )
 }
 
-export default SignUp
+export default DashboardContent

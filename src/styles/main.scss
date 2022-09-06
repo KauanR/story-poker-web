@@ -5,6 +5,26 @@
     margin: 0;
 }
 
-main {
-    padding: 1.5rem 2rem;
+body {
+    height: 100vh;
+
+    #__next {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas: 'header' 'main';
+
+        header {
+            grid-area: header;
+        }
+
+        main {
+            grid-area: main;
+            display: flex;
+            overflow: auto;
+            padding: 1.5rem 2.5rem;
+        }
+    }
+
 }
