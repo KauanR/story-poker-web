@@ -7,6 +7,7 @@ import Head from 'next/head'
 import theme from '../constants/theme'
 import Header from '../components/common/Header'
 import Background from '../components/common/Background'
+import { SnackbarProvider } from '../hooks/useSnackbar/snackbar-provider'
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -19,7 +20,9 @@ export default function App({ Component, pageProps }: AppProps) {
                 <Header/>
 
                 <main>
-                    <Component {...pageProps}/>
+                    <SnackbarProvider>
+                        <Component {...pageProps}/>
+                    </SnackbarProvider>
                 </main>
 
                 <Background/>
