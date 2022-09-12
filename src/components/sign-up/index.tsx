@@ -10,6 +10,7 @@ import EmailIcon from '@mui/icons-material/Email'
 import KeyIcon from '@mui/icons-material/Key'
 import styles from './styles.module.scss'
 import Link from 'next/link'
+import { useSnackbar } from '../../hooks/useSnackbar'
 
 const formSchema = Yup.object().shape({
     name: Yup.string()
@@ -23,10 +24,13 @@ const formSchema = Yup.object().shape({
 
 const SignUpContent = () => {
 
+    const { createSnack } = useSnackbar()
+
     const [showPassword, setShowPassword] = useState(false)
 
     function formSubmit(values: FormValues): void {
         console.log(values)
+        createSnack('Sign up successfully, you can login now!', 'success')
     }
 
     return (
