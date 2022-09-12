@@ -1,4 +1,4 @@
-import { Alert, AlertColor, Snackbar } from '@mui/material'
+import { Alert, AlertColor, Snackbar, Typography } from '@mui/material'
 import React, { createContext, ReactNode, useState } from 'react'
 import { SnackbarContextType } from './types/snackbar-context-type'
 import { SnackbarProps } from './types/snackbar-props'
@@ -35,7 +35,9 @@ export const SnackbarProvider = ({ children }: Props) => {
                         severity={snack.type} 
                         variant="filled"
                     >
-                        { snack.message }
+                        <Typography variant='body2'>
+                            { snack.message }
+                        </Typography>
                     </Alert>
                 </Snackbar>
             )}
