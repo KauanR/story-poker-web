@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import styles from './styles.module.scss'
 import DashboardHead from './Head'
-import DashboardTable from './Table'
 import { Room } from './types/room'
+import { Card, CardContent, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
+import DashboardItem from './Item'
 
 const Dashboard = () => {
 
@@ -10,16 +11,17 @@ const Dashboard = () => {
 
     const addRoom = (room: Room) => setRooms(rooms => [...rooms, room])
 
-    const restartRoom = (index: number) => {
-        console.log('num fiz ainda', index)
-    }
+    const editRoom = (room: Room, index: number) => {
+        console.log(room)
+        const updatedRooms = [...rooms]
+        updatedRooms[index] = room
 
-    const editRoom = (index: number, room: Room) => {
-        console.log('num fiz ainda', index, room)
+        setRooms(updatedRooms)
     }
 
     const deleteRoom = (index: number) => {
-        console.log('num fiz ainda', index)
+        const updatedRooms = rooms.filter((_, i) => i !== index)
+        setRooms(updatedRooms)
     }
 
     return (
@@ -28,12 +30,49 @@ const Dashboard = () => {
                 addRoom={addRoom}
             />
 
-            <DashboardTable 
-                rooms={rooms}
-                restartRoom={restartRoom}
-                editRoom={editRoom}
-                deleteRoom={deleteRoom}
-            />
+            <Card sx={{width: '100%', overflow: 'inherit'}}>
+                <CardContent>
+                    <Table>
+                        <colgroup>
+                            <col style={{width: '25%'}} />
+                            <col style={{width: '20%'}} />
+                            <col style={{width: '20%'}} />
+                            <col style={{width: '20%'}} />
+                            <col style={{width: '15%'}} />
+                        </colgroup>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>
+                                    Name
+                                </TableCell>
+                                <TableCell align='center'>
+                                    Type
+                                </TableCell>
+                                <TableCell align='center'>
+                                    Estimates Qty.
+                                </TableCell>
+                                <TableCell align='center'>
+                                    Last Used
+                                </TableCell>
+                                <TableCell align='right'>
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+
+                        <TableBody>
+                            { rooms.map((room, index) => (
+                                <DashboardItem 
+                                    key={room.id} 
+                                    room={room}
+                                    index={index}
+                                    editRoom={editRoom}
+                                    deleteRoom={deleteRoom}
+                                />
+                            )) }
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
         </div>
     )
 }
