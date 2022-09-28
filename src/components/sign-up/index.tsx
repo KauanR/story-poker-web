@@ -22,7 +22,15 @@ const formSchema = Yup.object().shape({
         .email('It needs to be a valid email')
         .required('Email is required'),
     password: Yup.string()
-        .required('Password is required')
+        .required('Password is required'),
+    confirmPassword: Yup.string()
+        .required('Confirm Password is required')
+        .when('password', (password, schema) => {
+            return schema.test({
+                test: (confirmPassword: string) => password === confirmPassword,
+                message: 'Your passwords do not match'
+            })
+        })
 })
 
 const SignUpContent = () => {
@@ -31,6 +39,7 @@ const SignUpContent = () => {
     const { createSnack } = useSnackbar()
 
     const [showPassword, setShowPassword] = useState(false)
+    const [showCPassword, setShowCPassword] = useState(false)
 
     function formSubmit(values: FormValues): void {
         const payload = {
@@ -64,7 +73,8 @@ const SignUpContent = () => {
                         initialValues={{
                             name: '',
                             email: '',
-                            password: ''
+                            password: '',
+                            confirmPassword: ''
                         } as FormValues}
                         validationSchema={formSchema}
                         validateOnBlur={true}
@@ -116,7 +126,24 @@ const SignUpContent = () => {
                                     fullWidth
                                 />
 
-
+                                <TextField
+                                    name='confirmPassword'
+                                    label='Confirm Password'
+                                    type={showCPassword ? 'text' : 'password'}
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position='start'> <KeyIcon/> </InputAdornment>
+                                        ),
+                                        endAdornment: (
+                                            <InputAdornment position='start'>
+                                                <IconButton onClick={() => setShowCPassword(!showCPassword)}>
+                                                    { showCPassword ? <Visibility /> : <VisibilityOff /> }
+                                                </IconButton>
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    fullWidth
+                                />
                                 <Button 
                                     variant='contained' 
                                     type='submit'
