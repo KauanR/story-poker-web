@@ -24,3 +24,8 @@ export const Buttons = styled.div`
     display: flex;
     gap: 1rem;
 `
+
+export const UserName = styled.span`
+    font: inherit;
+    font-weight: bold;
+`
