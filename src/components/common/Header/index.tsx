@@ -1,8 +1,15 @@
 import { AppBar, Button, Toolbar, Typography } from '@mui/material'
 import { Buttons, Spacer, temp_logoText } from './styles'
 import Link from 'next/link'
+import { useUser } from '../../../hooks/useUser'
 
 const Header = () => {
+    const { user, setUser } = useUser()
+
+    const logout = () => {
+        setUser(null)
+    }
+
     return (
         <AppBar position='static'>
             <Toolbar>
@@ -12,18 +19,27 @@ const Header = () => {
 
                 <Spacer/>
 
-                <Buttons>
-                    <Link href='/login'>
-                        <Button variant='text' component='a'>
-                            Login
+                { user  
+                    ? (
+                        <Button variant='text' onClick={logout}>
+                            Logout
                         </Button>
-                    </Link>
-                    <Link href='sign-up'>
-                        <Button variant='outlined' component='a'>
-                            Sign Up
-                        </Button>
-                    </Link>
-                </Buttons>
+                    )
+                    : (
+                        <Buttons>
+                            <Link href='/login'>
+                                <Button variant='text' component='a'>
+                                    Login
+                                </Button>
+                            </Link>
+                            <Link href='sign-up'>
+                                <Button variant='outlined' component='a'>
+                                    Sign Up
+                                </Button>
+                            </Link>
+                        </Buttons>
+                    )
+                }
             </Toolbar>
         </AppBar>
     )

@@ -1,19 +1,30 @@
-import { Alert, AlertColor, Snackbar, Typography } from '@mui/material'
+import { Alert, AlertColor, Snackbar as MuiSnackbar, Typography } from '@mui/material'
 import React, { createContext, ReactNode, useState } from 'react'
-import { SnackbarContextType } from './types/snackbar-context-type'
-import { SnackbarProps } from './types/snackbar-props'
+// import { Snackbar } from '../types/snackbar'
+
+type SnackbarContextType = {
+    createSnack: (message: string, type: AlertColor) => void
+    handleClose: () => void
+}
 
 export const SnackbarContext = createContext<SnackbarContextType>({
     createSnack: (message: string, type: AlertColor) => {},
     handleClose: () => {}
 })
 
-type Props = {
+type SnackbarProvider = {
     children: ReactNode
 }
 
-export const SnackbarProvider = ({ children }: Props) => {
-    const [ snack, setSnack ] = useState<SnackbarProps | null>(null)
+type Snackbar = {
+    message: string
+    type: AlertColor
+    open: boolean
+    onClose?: () => void
+}
+
+export const SnackbarProvider = ({ children }: SnackbarProvider) => {
+    const [ snack, setSnack ] = useState<Snackbar | null>(null)
 
     const createSnack = (message: string, type: AlertColor) => setSnack({ message, type, open: true })
 
@@ -22,7 +33,7 @@ export const SnackbarProvider = ({ children }: Props) => {
     return (
         <SnackbarContext.Provider value={{createSnack, handleClose}}>
             { snack && (
-                <Snackbar
+                <MuiSnackbar
                     anchorOrigin={{
                         vertical: 'bottom',
                         horizontal: 'center',
@@ -39,7 +50,7 @@ export const SnackbarProvider = ({ children }: Props) => {
                             { snack.message }
                         </Typography>
                     </Alert>
-                </Snackbar>
+                </MuiSnackbar>
             )}
             { children }
         </SnackbarContext.Provider>

@@ -7,27 +7,26 @@ import Head from 'next/head'
 import theme from '../constants/theme'
 import Header from '../components/common/Header'
 import Background from '../components/common/Background'
-import { SnackbarProvider } from '../hooks/useSnackbar/snackbar-provider'
+import GlobalContext from '../context'
 
 export default function App({ Component, pageProps }: AppProps) {
-
     return (
         <>
             <Head>
                 <title>Story Poker</title>
             </Head>
             <ThemeProvider theme={theme}>
-                <Header/>
+                <GlobalContext>
+                    <Header/>
 
-                <main>
-                    <SnackbarProvider>
+                    <main>
                         <Component {...pageProps}/>
-                    </SnackbarProvider>
-                </main>
+                    </main>
 
-                <Background/>
+                    <Background/>
 
-                <CssBaseline />
+                    <CssBaseline />
+                </GlobalContext>
             </ThemeProvider>
         </>
     )
