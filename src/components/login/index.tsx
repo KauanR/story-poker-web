@@ -36,7 +36,7 @@ const Login = () => {
             .then(({data :{ data }}) => {
                 setUser({ ...data.user, token: data.token })
                 createSnack('Login successfully!', 'success')
-                router.push('/dashboard')
+                // router.push('/dashboard')
             })
             .catch(err => {
                 createSnack('Something wrong happened, please try again', 'success')
