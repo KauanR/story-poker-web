@@ -11,9 +11,8 @@ import KeyIcon from '@mui/icons-material/Key'
 import styles from './styles.module.scss'
 import Link from 'next/link'
 import { useSnackbar } from '../../hooks/useSnackbar'
-import axios from 'axios'
-import env from '../../constants/env'
 import { useRouter } from 'next/router'
+import useApi from '../../hooks/useApi'
 
 const formSchema = Yup.object().shape({
     name: Yup.string()
@@ -38,6 +37,8 @@ const SignUpContent = () => {
     const router = useRouter()
     const { createSnack } = useSnackbar()
 
+    const { post } = useApi()
+
     const [showPassword, setShowPassword] = useState(false)
     const [showCPassword, setShowCPassword] = useState(false)
 
@@ -47,13 +48,13 @@ const SignUpContent = () => {
             confirmPassword: values.password
         }
 
-        axios.post(`${env.apiUrl}/user`, payload)
+        post('/user', payload)
             .then(() => {
                 createSnack('Sign up successfully, you can login now!', 'success')
                 router.push('/login')
             })
             .catch(err => {
-                createSnack('Something wrong happened, please try again', 'success')
+                createSnack('Something wrong happened, please try again', 'error')
                 console.log(err)
             })
     }
