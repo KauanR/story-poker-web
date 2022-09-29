@@ -1,11 +1,13 @@
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 import UserContext from '../context/user'
+import { useUser } from './useUser'
 
 const publicRoutes = [
     '/',
     '/login',
-    '/sign-up'
+    '/sign-up',
+    '/join'
 ]
 
 const useAuthRedirect = () => {
@@ -16,11 +18,12 @@ const useAuthRedirect = () => {
         const isAPublicRoute = publicRoutes.indexOf(router.route) !== -1
 
         if(!user && !isAPublicRoute) {
-            router.push('/')
+            router.push('/?redirect=' + encodeURI(window.location.pathname))
         } else if(user && isAPublicRoute) {
-            router.push('/dashboard')
+            const oldRoute = router.query.redirect
+            router.push(typeof oldRoute === 'string' ? decodeURI(oldRoute) : '/dashboard')
         }
-    }, [user, router])
+    }, [router, user])
 }
 
 export default useAuthRedirect

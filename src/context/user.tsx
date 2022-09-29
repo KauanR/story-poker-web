@@ -20,6 +20,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
     useEffect(() => {
         const user = sessionStorage.getItem('user')
+        console.log('useEffect user', user)
         if(user !== null)
             setUser(JSON.parse(user))
     }, [])
