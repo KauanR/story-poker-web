@@ -31,7 +31,8 @@ const Login = () => {
 
     function formSubmit(values: FormValues): void {
         post('/login', values)
-            .then(({data :{ data }}) => {
+            .then(data => {
+                console.log(data)
                 setUser({ ...data.user, token: data.token })
                 createSnack('Login successfully!', 'success')
             })

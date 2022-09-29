@@ -16,7 +16,7 @@ const useApi = () => {
         return axios.get(
             `${env.apiUrl}${url}`, 
             useAuth ? authConfig : undefined
-        )
+        ).then(({data :{ data }}) => data)
     }
 
     const post = (url: string, payload: any, useAuth?: boolean) => {
@@ -24,7 +24,7 @@ const useApi = () => {
             `${env.apiUrl}${url}`, 
             payload,
             useAuth ? authConfig : undefined
-        )
+        ).then(({data :{ data }}) => data)
     }
 
     const put = (url: string, payload: any, useAuth?: boolean) => {
@@ -32,14 +32,14 @@ const useApi = () => {
             `${env.apiUrl}${url}`, 
             payload,
             useAuth ? authConfig : undefined
-        )
+        ).then(({data :{ data }}) => data)
     }
 
     const del = (url: string, useAuth?: boolean) => {
         return axios.delete(
             `${env.apiUrl}${url}`, 
             useAuth ? authConfig : undefined
-        )
+        ).then(({data :{ data }}) => data)
     }
 
     return {
