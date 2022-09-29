@@ -13,7 +13,10 @@ const Header = () => {
     const router = useRouter()
 
     const { user, setUser } = useUser()
-    const logout = () => setUser(null)
+    const logout = () => {
+        setAnchor(null)
+        setUser(null)
+    }
 
     const [anchor, setAnchor] = useState<HTMLElement | null>(null)
     const openMenu = (event: MouseEvent<HTMLButtonElement>) => setAnchor(event.currentTarget)
