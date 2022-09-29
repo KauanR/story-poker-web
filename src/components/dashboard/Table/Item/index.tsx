@@ -3,36 +3,62 @@ import styles from './styles.module.scss'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
-import { Room } from '../types/room'
+import { Room } from '../../types/room'
 import { useRouter } from 'next/router'
-import DashboardForm from '../Form'
+import DashboardForm from '../../Form'
 import { useState } from 'react'
-import { FormValues } from '../types/form-values'
+import { FormValues } from '../../types/form-values'
+import { Cards } from '../../types/cards'
+import useApi from '../../../../hooks/useApi'
+import { useSnackbar } from '../../../../hooks/useSnackbar'
 
 type Props = {
     room: Room
     index: number
-    editRoom: (room: Room, index: number) => void
-    deleteRoom: (index: number) => void
+    cards: Cards
+    refresh: () => void
 }
 
-const DashboardItem = ({ room, index, editRoom, deleteRoom }: Props) => {
+const DashboardTableItem = ({ room, index, cards, refresh }: Props) => {
 
+    const { createSnack } = useSnackbar()
+    const { put, del } = useApi()
     const router = useRouter()
 
     const [dialogCtrl, setDialogCtrl] = useState<{type: string, flag: boolean}>({type: '', flag: false})
     const openDialog = (type: string) => setDialogCtrl({type, flag: true})
     const closeDialog = () => setDialogCtrl({...dialogCtrl, flag: false})
 
-    const editRoomHandler = (values: FormValues) => {
-        const {name, type, ...roomAttr} = room
-        editRoom({ ...values, ...roomAttr }, index)
-        closeDialog()
+    const editRoom = (values: FormValues) => {
+        const payload = {
+            id: room.id,
+            cards: cards[values.type],
+            ...values,
+        }
+
+        put('/room', payload)
+            .then(() => {
+                refresh()
+                createSnack('Room created successfully!', 'success')
+                closeDialog()
+            })
+            .catch(err => {
+                console.log(err)
+                createSnack('Something wrong happened, please try again', 'error')
+            })
     }
 
-    const deleteRoomHandler = () => {
-        deleteRoom(index)
-        closeDialog()
+    const deleteRoom = () => {
+        del('/room/' + room.id)
+            .then(() => {
+                refresh()
+                createSnack('Room created successfully!', 'success')
+                closeDialog()
+            })
+            .catch(err => {
+                console.log(err)
+                createSnack('Something wrong happened, please try again', 'error')
+            })
     }
 
     return (
@@ -88,8 +114,9 @@ const DashboardItem = ({ room, index, editRoom, deleteRoom }: Props) => {
                         name: room.name,
                         type: room.type
                     }}
+                    cards={cards}
                     onClose={closeDialog}
-                    onSubmit={editRoomHandler}
+                    onSubmit={editRoom}
                     open={dialogCtrl.flag}
                     title='Edit Room'
                     buttonText='Edit'
@@ -121,7 +148,7 @@ const DashboardItem = ({ room, index, editRoom, deleteRoom }: Props) => {
                         <Button
                             variant='contained'
                             color='error'
-                            onClick={deleteRoomHandler}
+                            onClick={deleteRoom}
                         >
                             Delete
                         </Button>
@@ -132,4 +159,4 @@ const DashboardItem = ({ room, index, editRoom, deleteRoom }: Props) => {
     )
 }
 
-export default DashboardItem
+export default DashboardTableItem

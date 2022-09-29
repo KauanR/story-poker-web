@@ -1,12 +1,15 @@
-import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Button, Dialog, DialogContent, DialogTitle, Paper, Tooltip, Typography } from '@mui/material'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import Select from '../../common/Select'
 import TextField from '../../common/TextField'
+import { Cards } from '../types/cards'
 import { FormValues } from '../types/form-values'
 import styles from './styles.module.scss'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 type Props = {
+    cards: Cards
     open: boolean
     onClose: () => void
     onSubmit: (values: FormValues) => void
@@ -65,13 +68,42 @@ const DashboardForm = (props: Props) => {
                                 sx={{width: '90%'}}
                             />
 
-                            <Select
-                                name='type'
-                                label='Type'
-                                options={typeOptions}
-                                fullWidth
-                                sx={{width: '90%'}}
-                            />
+                            <Tooltip 
+                                title={props.initialValues ? 'You cannot change the room type' : '' }
+                                placement='top'
+                            >
+                                <span style={{width: '90%'}}>
+                                    <Select
+                                        name='type'
+                                        label='Type'
+                                        options={typeOptions}
+                                        fullWidth
+                                        disabled={Boolean(props.initialValues)}
+                                    />
+                                </span>
+                            </Tooltip>
+
+                            <div className={styles.cards}>
+                                <Accordion className={styles.accordion}>
+                                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                                            Cards
+                                        </Typography>
+                                        <Typography sx={{ color: 'text.secondary' }}>
+                                            Available cards for type &apos;&apos;{ formProps.values.type }&apos;&apos;
+                                        </Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <div className={styles.grid}>
+                                            { props.cards[formProps.values.type]?.map(card => (
+                                                <Paper className={styles.item} key={card.id} elevation={3}>
+                                                    { card.value }
+                                                </Paper>
+                                            )) }
+                                        </div>
+                                    </AccordionDetails>
+                                </Accordion>
+                            </div>
 
                             <div className={styles.buttons}>
                                 <Button

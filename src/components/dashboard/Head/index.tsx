@@ -3,30 +3,40 @@ import styles from './styles.module.scss'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { Room } from '../types/room'
 import DashboardForm from '../Form'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FormValues } from '../types/form-values'
+import useApi from '../../../hooks/useApi'
+import { Cards } from '../types/cards'
+import { useSnackbar } from '../../../hooks/useSnackbar'
 
 type Props = {
-    addRoom: (room: Room) => void
+    cards: Cards
+    refresh: () => void
 }
 
-const DashboardHead = ({ addRoom }: Props) => {
+const DashboardHead = ({ cards, refresh }: Props) => {
 
-    const [idCounter, setIdCounter] = useState<number>(1)
+    const { createSnack } = useSnackbar()
+    const { post } = useApi()
+
     const [dialogFlag, setDialogFlag] = useState<boolean>(false)
 
     const createRoom = (values: FormValues) => {
-        console.log('createRoom', values)
-
-        addRoom({
-            id: idCounter.toString(),
-            estimatesQty: 0,
-            lastUsed: '',
+        const payload = {
             ...values,
-        })
+            cards: cards[values.type]?.map(card => card.id)
+        }
 
-        setDialogFlag(false)
-        setIdCounter(val => ++val)
+        post('/room', payload, true)
+            .then(() => {
+                refresh()
+                createSnack('Room created successfully!', 'success')
+                setDialogFlag(false)
+            })
+            .catch(err => {
+                console.log(err)
+                createSnack('Something wrong happened, please try again', 'error')
+            })
     }
 
     return (
@@ -50,6 +60,7 @@ const DashboardHead = ({ addRoom }: Props) => {
             </div>
 
             <DashboardForm
+                cards={cards}
                 onClose={() => setDialogFlag(false)}
                 onSubmit={createRoom}
                 open={dialogFlag}
