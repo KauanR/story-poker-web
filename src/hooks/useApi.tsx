@@ -46,7 +46,7 @@ const useApi = () => {
         get,
         post,
         put,
-        delete: del
+        del
     }
 }
 
