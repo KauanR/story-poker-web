@@ -1,7 +1,7 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import Room from '../../components/room'
+import Room from '../../components/pages/room'
 import useAuthRedirect from '../../hooks/useAuthRedirect'
 
 const RoomPage: NextPage = () => {

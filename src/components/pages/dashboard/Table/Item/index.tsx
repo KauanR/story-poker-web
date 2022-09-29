@@ -9,8 +9,8 @@ import DashboardForm from '../../Form'
 import { useState } from 'react'
 import { FormValues } from '../../types/form-values'
 import { Cards } from '../../types/cards'
-import useApi from '../../../../hooks/useApi'
-import { useSnackbar } from '../../../../hooks/useSnackbar'
+import useApi from '../../../../../hooks/useApi'
+import { useSnackbar } from '../../../../../hooks/useSnackbar'
 
 type Props = {
     room: Room

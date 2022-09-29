@@ -1,6 +1,6 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import Profile from '../../components/profile'
+import Profile from '../../components/pages/profile'
 import useAuthRedirect from '../../hooks/useAuthRedirect'
 
 const ProfilePage: NextPage = () => {
