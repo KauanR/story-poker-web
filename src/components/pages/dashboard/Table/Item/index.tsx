@@ -14,12 +14,11 @@ import { useSnackbar } from '../../../../../hooks/useSnackbar'
 
 type Props = {
     room: Room
-    index: number
     cards: Cards
     refresh: () => void
 }
 
-const DashboardTableItem = ({ room, index, cards, refresh }: Props) => {
+const DashboardTableItem = ({ room, cards, refresh }: Props) => {
 
     const { createSnack } = useSnackbar()
     const { put, del } = useApi()
@@ -32,11 +31,11 @@ const DashboardTableItem = ({ room, index, cards, refresh }: Props) => {
     const editRoom = (values: FormValues) => {
         const payload = {
             id: room.id,
-            cards: cards[values.type],
+            cards: cards[values.type]?.map(card => card.id),
             ...values,
         }
 
-        put('/room', payload)
+        put('/room/' + room.id, payload, true)
             .then(() => {
                 refresh()
                 createSnack('Room created successfully!', 'success')
@@ -49,7 +48,7 @@ const DashboardTableItem = ({ room, index, cards, refresh }: Props) => {
     }
 
     const deleteRoom = () => {
-        del('/room/' + room.id)
+        del('/room/' + room.id, true)
             .then(() => {
                 refresh()
                 createSnack('Room created successfully!', 'success')

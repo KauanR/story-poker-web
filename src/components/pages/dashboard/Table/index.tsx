@@ -41,11 +41,10 @@ const DashboardTable = ({ rooms, cards, refresh }: Props) => {
                     </TableHead>
 
                     <TableBody>
-                        { rooms.map((room, index) => (
+                        { rooms.map(room => (
                             <DashboardItem 
                                 key={room.id} 
                                 room={room}
-                                index={index}
                                 cards={cards}
                                 refresh={refresh}
                             />
