@@ -10,12 +10,12 @@ type Props = {
 
 const RoomInvite = ({ roomId, basePath }: Props) => {
 
-    const invite = `${basePath}/join/${roomId}`
+    const invite = `${basePath}/join/${roomId}?title=${'Essa merda de titulo'}`
 
     const [copyFlag, setCopyFlag] = useState(false)
 
     const copyInvite = () => {
-        navigator.clipboard.writeText(invite)
+        navigator.clipboard.writeText(encodeURI(invite))
         setCopyFlag(true)
         setTimeout(() => setCopyFlag(false), 2000)
     }
