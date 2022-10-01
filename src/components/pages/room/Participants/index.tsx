@@ -1,7 +1,24 @@
 import { Card, CardContent, Typography } from '@mui/material'
-import styles from './styles.module.scss'
+import { useEffect } from 'react'
+import useApi from '../../../../hooks/useApi'
 
-const RoomParticipants = () => {
+type Props = {
+    roomId: string
+}
+
+const RoomParticipants = ({ roomId }: Props) => {
+    const { get } = useApi()
+
+    useEffect(() => {
+        get('/participant/' + roomId, true)
+            .then(data => {
+                console.log(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
     return (
         <Card>
             <CardContent>
