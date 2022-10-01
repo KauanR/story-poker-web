@@ -6,6 +6,7 @@ import useAuthRedirect from '../../hooks/useAuthRedirect'
 import { CircularProgress } from '@mui/material'
 import useApi from '../../hooks/useApi'
 import RoomAttr from '../../types/room/room'
+import { useUser } from '../../hooks/useUser'
 
 const RoomPage: NextPage = () => {
     useAuthRedirect()
@@ -13,6 +14,7 @@ const RoomPage: NextPage = () => {
     const router = useRouter()
     const { roomId } = router.query
     const { get } = useApi()
+    const { user } = useUser()
 
     const [roomData, setRoomData] = useState<RoomAttr | null>(null)
 
@@ -22,6 +24,7 @@ const RoomPage: NextPage = () => {
                 .then(data => {
                     setRoomData({
                         id: data.id,
+                        userData: user,
                         name: data.name,
                         type: data.type,
                         cards: data.roomCards.map((roomCard: any) => ({

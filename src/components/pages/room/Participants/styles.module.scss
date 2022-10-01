@@ -1,0 +1,10 @@
+.participants {
+    padding-bottom: 0;
+
+    .participant {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+}

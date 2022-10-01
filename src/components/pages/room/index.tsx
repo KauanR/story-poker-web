@@ -6,7 +6,7 @@ import RoomStories from './Stories'
 import styles from './styles.module.scss'
 import RoomVoting from './Voting'
 
-const Room = (room: RoomAttr) => {
+const Room = ({userData, ...room}: RoomAttr) => {
 
     return (
         <div className={styles.wrap}>
@@ -20,7 +20,7 @@ const Room = (room: RoomAttr) => {
             </div>
 
             <div className={styles.aside}>
-                <RoomParticipants roomId={room.id}/>
+                <RoomParticipants user={userData} roomId={room.id}/>
                 <RoomInvite basePath={room.basePath} roomId={room.id}/>
             </div>
         </div>
