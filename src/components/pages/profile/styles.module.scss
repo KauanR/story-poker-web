@@ -1,0 +1,23 @@
+.wrap {
+    margin: auto;
+    width: 35vw;
+
+    .form {
+        display: grid;
+        grid-template-rows: auto;
+        justify-items: center;
+        gap: 1.5rem;
+
+        .submit {
+            width: 90%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+
+            .delete {
+                position: absolute;
+                right: 0;
+            }
+        }
+    }
+}
