@@ -15,8 +15,6 @@ const RoomVoting = ({ activeStory, cards }: Props) => {
 
     const theme = useTheme()
 
-    console.log(theme)
-
     const [votedCard, setVotedCard] = useState<number>(-1)
 
     useEffect(() => {
@@ -29,14 +27,14 @@ const RoomVoting = ({ activeStory, cards }: Props) => {
 
     return (
         <div className={styles.cards}>
-            {/* { activeStory === undefined
+            { activeStory === undefined
                 ? (
                     <Tooltip title='Wait until the voting starts' arrow placement='top'>
                         <div className={styles.backdrop}></div>
                     </Tooltip>
                 )
                 : null
-            } */}
+            }
 
             <Typography 
                 className={styles.storyTitle}
