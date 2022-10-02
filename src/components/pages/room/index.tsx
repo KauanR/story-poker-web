@@ -1,29 +1,88 @@
 import { Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { useWebSocket } from 'react-use-websocket/dist/lib/use-websocket'
+import env from '../../../constants/env'
+import { Actions } from '../../../types/room/actions'
+import { ActionsCount } from '../../../types/room/actions-count'
 import RoomAttr from '../../../types/room/room'
+import RoomContainer, { RoomContainerData } from './Container'
 import RoomInvite from './Invite'
 import RoomParticipants from './Participants'
 import RoomStories from './Stories'
 import styles from './styles.module.scss'
 import RoomVoting from './Voting'
 
-const Room = ({userData, ...room}: RoomAttr) => {
+const Room = (roomAttr: RoomAttr) => {
+
+    const { sendJsonMessage } = useWebSocket(`${env.hookUrl}/room/${roomAttr.id}`, {
+        onOpen: () => console.log('[WEBHOOK] Opened'),
+        onError: err => console.log('[WEBHOOK] Error: ', err),
+        shouldReconnect: () => true,
+        reconnectInterval: 3000,
+        reconnectAttempts: 2,
+        onMessage: messageEvent => {
+            const { action } = JSON.parse(messageEvent.data)
+            setCounts({
+                participants: action === 'participants' ? ++counts.participants : counts.participants,
+                stories: action === 'stories' ? ++counts.stories : counts.stories,
+                voting: action === 'voting' ? ++counts.voting : counts.voting
+            })
+        },
+        queryParams: {
+            token: roomAttr.userData?.token as string
+        }
+    })
+
+    const [counts, setCounts] = useState<ActionsCount>({
+        participants: 0,
+        stories: 0,
+        voting: 0
+    })
+
+    const handleMessages = (action: Actions) => {
+        sendJsonMessage({ action, roomId: roomAttr.id })
+    }
+
+    useEffect(() => {
+        handleMessages('participants')
+    }, [])
 
     return (
-        <div className={styles.wrap}>
-            <Typography className={styles.title} variant='h4' align='center'>
-                { room.name }
-            </Typography>
+        <RoomContainer room={roomAttr} counts={counts}>
+            {({ participants, stories, voting }: RoomContainerData) => (
+                <div className={styles.wrap}>
+                    <Typography className={styles.title} variant='h4' align='center'>
+                        {roomAttr.name}
+                    </Typography>
 
-            <div className={styles.main}>
-                <RoomVoting cards={room.cards}/>
-                <RoomStories/>
-            </div>
+                    <div className={styles.main}>
+                        <RoomVoting 
+                            cards={roomAttr.cards} 
+                            voting={voting} 
+                            user={roomAttr.userData}
+                            updateSocket={handleMessages}
+                        />
+                        <RoomStories 
+                            stories={stories}
+                            user={roomAttr.userData}
+                            updateSocket={handleMessages}
+                        />
+                    </div>
 
-            <div className={styles.aside}>
-                <RoomParticipants user={userData} roomId={room.id}/>
-                <RoomInvite basePath={room.basePath} roomId={room.id}/>
-            </div>
-        </div>
+                    <div className={styles.aside}>
+                        <RoomParticipants
+                            participants={participants}
+                            updateSocket={handleMessages}
+                            user={roomAttr.userData}
+                        />
+                        <RoomInvite 
+                            basePath={roomAttr.basePath} 
+                            roomId={roomAttr.id} 
+                        />
+                    </div>
+                </div>
+            )}
+        </RoomContainer>
     )
 }
 

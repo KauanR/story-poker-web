@@ -2,46 +2,36 @@ import { Card, CardContent, Divider, List, ListItem, Menu, MenuItem, Typography 
 import { Fragment, MouseEvent, useEffect, useState } from 'react'
 import useApi from '../../../../hooks/useApi'
 import { useSnackbar } from '../../../../hooks/useSnackbar'
+import { Actions } from '../../../../types/room/actions'
 import { Participant } from '../../../../types/room/participant'
 import { User } from '../../../../types/user'
 import styles from './styles.module.scss'
 
 type Props = {
+    participants: Participant[]
+    updateSocket: (action: Actions) => void
     user: User | null
-    roomId: string
 }
 
-const RoomParticipants = ({ user, roomId }: Props) => {
+const RoomParticipants = ({ participants, updateSocket, user }: Props) => {
 
     const { createSnack } = useSnackbar()
 
-    const { get, del } = useApi()
-
-    const [participants, setParticipants] = useState<Participant[]>([])
+    const { del } = useApi()
 
     const [anchor, setAnchor] = useState<HTMLElement | null>(null)
     const openMenu = (event: MouseEvent<HTMLButtonElement>) => setAnchor(event.currentTarget)
     const closeMenu = () => setAnchor(null)
 
-    const loadParticipants = () => {
-        get('/participant/' + roomId, true)
-            .then(data => setParticipants(data))
-            .catch(err => console.log(err))
-    }
-
     const kickParticipant = (id: number) => {
         del('/participant/' + id, true)
             .then(() => {
                 createSnack('Participant kicked successfully', 'success')
-                loadParticipants()
+                updateSocket('participants')
                 closeMenu()
             })
             .catch(err => console.log(err))
     }
-
-    useEffect(() => {
-        loadParticipants()
-    }, [])
 
     return (
         <Card>
