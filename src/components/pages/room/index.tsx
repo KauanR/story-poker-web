@@ -82,6 +82,7 @@ const Room = (roomAttr: RoomAttr) => {
 
                         <RoomInvite 
                             basePath={roomAttr.basePath} 
+                            roomName={roomAttr.name}
                             roomId={roomAttr.id} 
                         />
                     </div>

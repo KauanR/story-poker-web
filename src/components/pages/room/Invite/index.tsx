@@ -5,12 +5,13 @@ import { useState } from 'react'
 
 type Props = {
     roomId: string | string[] | undefined
+    roomName: string
     basePath: string | string[] | undefined
 }
 
-const RoomInvite = ({ roomId, basePath }: Props) => {
+const RoomInvite = ({ roomId, roomName, basePath }: Props) => {
 
-    const invite = `${basePath}/join/${roomId}?title=${'Essa merda de titulo'}`
+    const invite = `${basePath}/join/${roomId}?title=${roomName}`
 
     const [copyFlag, setCopyFlag] = useState(false)
 
