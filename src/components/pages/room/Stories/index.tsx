@@ -8,7 +8,6 @@ import { TabContext } from '@mui/lab'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import TabList from '@mui/lab/TabList'
 import { Form, Formik } from 'formik'
-import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled'
 import * as Yup from 'yup'
 import TextField from '../../../common/TextField'
 import useApi from '../../../../hooks/useApi'
@@ -62,14 +61,9 @@ const RoomStories = ({ user, roomId, stories, updateSocket }: Props) => {
                             Stories
                         </Typography>
                         { user?.email && (
-                            <div>
-                                <IconButton onClick={() => setDialogFlag(true)}>
-                                    <AddCircleIcon/>
-                                </IconButton>
-                                <IconButton onClick={nextStory}>
-                                    <PlayCircleFilledIcon/>
-                                </IconButton>
-                            </div>
+                            <IconButton onClick={() => setDialogFlag(true)}>
+                                <AddCircleIcon/>
+                            </IconButton>
                         )}
                     </div>
                     <TabContext value={tabIndex}>

@@ -5,6 +5,7 @@ import env from '../../../constants/env'
 import { Actions } from '../../../types/room/actions'
 import { ActionsCount } from '../../../types/room/actions-count'
 import RoomAttr from '../../../types/room/room'
+import RoomActions from './Actions'
 import RoomContainer, { RoomContainerData } from './Container'
 import RoomInvite from './Invite'
 import RoomParticipants from './Participants'
@@ -76,6 +77,9 @@ const Room = (roomAttr: RoomAttr) => {
                             updateSocket={handleMessages}
                             user={roomAttr.userData}
                         />
+
+                        <RoomActions/>
+
                         <RoomInvite 
                             basePath={roomAttr.basePath} 
                             roomId={roomAttr.id} 

@@ -1,5 +1,5 @@
 import { Card, CardContent, Divider, List, ListItem, Menu, MenuItem, Typography } from '@mui/material'
-import { Fragment, MouseEvent, useEffect, useState } from 'react'
+import { Fragment, MouseEvent, useState } from 'react'
 import useApi from '../../../../hooks/useApi'
 import { useSnackbar } from '../../../../hooks/useSnackbar'
 import { Actions } from '../../../../types/room/actions'
@@ -37,7 +37,7 @@ const RoomParticipants = ({ participants, updateSocket, user }: Props) => {
         <Card>
             <CardContent>
                 <Typography variant='h5'>
-                    Room participants
+                    Participants
                 </Typography>
                 <List className={styles.participants}>
                     { participants && participants.length > 0 && participants.map((p, index) => (
