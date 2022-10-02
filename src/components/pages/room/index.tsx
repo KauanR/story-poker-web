@@ -65,6 +65,7 @@ const Room = (roomAttr: RoomAttr) => {
                         <RoomStories 
                             stories={stories}
                             user={roomAttr.userData}
+                            roomId={roomAttr.id}
                             updateSocket={handleMessages}
                         />
                     </div>
