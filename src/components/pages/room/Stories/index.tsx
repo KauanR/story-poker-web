@@ -48,10 +48,6 @@ const RoomStories = ({ user, roomId, stories, updateSocket }: Props) => {
             })
     }
 
-    const nextStory = () => {
-        console.log('nextStory')
-    }
-
     return (
         <>
             <Card className={styles.card}>
