@@ -151,36 +151,38 @@ const RoomStatus = ({ user, cards, queue, updateSocket, nextStory }: Props) => {
                                         { queue.story?.title } 
                                     </Typography>
 
-                                    <Formik
-                                        initialValues={{
-                                            value: ''
-                                        }}
-                                        validationSchema={Yup.object().shape({
-                                            value: Yup.string().required('Story value is required'),
-                                        })}
-                                        validateOnBlur={true}
-                                        validateOnMount={true}
-                                        onSubmit={onSubmit}
-                                    >
-                                        { formProps => (
-                                            <Form className={styles.form}>
-                                                <Select
-                                                    label='Story value'
-                                                    name='value'
-                                                    options={storyValues}
-                                                />
+                                    { userType === 'owner' && (
+                                        <Formik
+                                            initialValues={{
+                                                value: ''
+                                            }}
+                                            validationSchema={Yup.object().shape({
+                                                value: Yup.string().required('Story value is required'),
+                                            })}
+                                            validateOnBlur={true}
+                                            validateOnMount={true}
+                                            onSubmit={onSubmit}
+                                        >
+                                            { formProps => (
+                                                <Form className={styles.form}>
+                                                    <Select
+                                                        label='Story value'
+                                                        name='value'
+                                                        options={storyValues}
+                                                    />
 
-                                                <Button 
-                                                    color='primary' 
-                                                    variant='contained'
-                                                    type='submit'
-                                                    disabled={!formProps.isValid}
-                                                >
-                                                    Complete Story
-                                                </Button>
-                                            </Form>
-                                        )}
-                                    </Formik>
+                                                    <Button 
+                                                        color='primary' 
+                                                        variant='contained'
+                                                        type='submit'
+                                                        disabled={!formProps.isValid}
+                                                    >
+                                                        Complete Story
+                                                    </Button>
+                                                </Form>
+                                            )}
+                                        </Formik>
+                                    )}
                                 </>
                             )
                         }
