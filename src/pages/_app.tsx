@@ -7,24 +7,26 @@ import Head from 'next/head'
 import theme from '../constants/theme'
 import Header from '../components/common/Header'
 import Background from '../components/common/Background'
+import GlobalContext from '../context'
 
 export default function App({ Component, pageProps }: AppProps) {
-
     return (
         <>
             <Head>
                 <title>Story Poker</title>
             </Head>
             <ThemeProvider theme={theme}>
-                <Header/>
+                <GlobalContext>
+                    <Header/>
 
-                <main>
-                    <Component {...pageProps}/>
-                </main>
+                    <main>
+                        <Component {...pageProps}/>
+                    </main>
 
-                <Background/>
+                    <Background/>
 
-                <CssBaseline />
+                    <CssBaseline />
+                </GlobalContext>
             </ThemeProvider>
         </>
     )

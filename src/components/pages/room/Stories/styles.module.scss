@@ -1,0 +1,25 @@
+.card {
+    width: 50%;
+    margin: 0 auto 2rem auto;
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+    }    
+}
+
+
+.createForm {
+    display: grid;
+    width: 500px;
+    grid-template-columns: auto;
+    justify-items: center;
+    gap: 1rem;
+
+    .submit {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        gap: 2rem;
+    }
+}

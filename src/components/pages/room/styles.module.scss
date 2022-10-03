@@ -1,0 +1,27 @@
+@mixin flexContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+div.wrap {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: auto 1fr;
+    gap: 2rem;
+    margin: 0 auto;
+
+    .title {
+        grid-column: span 10;
+    }
+
+    .main {
+        grid-column: span 7;
+        @include flexContent;
+    }
+
+    .aside {
+        grid-column: span 3;
+        @include flexContent;
+    }
+}

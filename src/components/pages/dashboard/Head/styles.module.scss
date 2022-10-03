@@ -1,0 +1,11 @@
+.head {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2.5rem;
+
+    button {
+        height: max-content;
+    }
+}
