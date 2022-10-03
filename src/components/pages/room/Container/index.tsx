@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import useApi from '../../../../hooks/useApi'
 import { ActionsCount } from '../../../../types/room/actions-count'
 import { Participant } from '../../../../types/room/participant'
+import { QueueCtrl } from '../../../../types/room/queue-ctrl'
 import RoomAttr from '../../../../types/room/room'
 import { StoryCtrl } from '../../../../types/room/story'
 
@@ -14,7 +15,7 @@ export type RoomContainerProps = {
 export type RoomContainerData = {
     participants: Participant[]
     stories: StoryCtrl
-    voting: any
+    queue: QueueCtrl
 }
 
 const RoomContainer = ({ room, children, counts }: RoomContainerProps) => {
@@ -44,12 +45,28 @@ const RoomContainer = ({ room, children, counts }: RoomContainerProps) => {
             .catch(err => console.log(err))
     }, [counts.stories])
 
-    const [voting, setVoting] = useState({})
+
+
+    const [queue, setQueue] = useState<QueueCtrl>({ status: 'waiting' })
+    
     useEffect(() => {
-        console.log('reloading voting')
-    }, [counts.voting])
+        get(`/story/${room.id}?status=active`, true)
+            .then(data => {
+                let status: 'waiting' | 'active' | 'completed'
 
+                if(data.length === 0)
+                    status = 'waiting'
+                else
+                    status = data[0].estimation === 'WAITING_CONFIRMATION' ? 'completed' : 'active'
 
+                setQueue({
+                    status,
+                    story: data[0] || null
+                })
+                console.log(queue)
+            })
+            .catch(err => console.log(err))
+    }, [counts.queue])
 
     return (
         <>
@@ -57,7 +74,7 @@ const RoomContainer = ({ room, children, counts }: RoomContainerProps) => {
                 children({
                     participants,
                     stories,
-                    voting
+                    queue
                 } as RoomContainerData)
             }
         </>

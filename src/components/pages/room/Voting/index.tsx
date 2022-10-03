@@ -1,35 +1,51 @@
-import { Paper, Tooltip, Typography, useTheme } from '@mui/material'
+import { Tooltip, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
+import useApi from '../../../../hooks/useApi'
 import { Actions } from '../../../../types/room/actions'
 import Card from '../../../../types/room/card'
+import { QueueCtrl } from '../../../../types/room/queue-ctrl'
 import { User } from '../../../../types/user'
 import styles from './styles.module.scss'
 
 type Props = {
     user: User | null
-    voting: any
+    queue: QueueCtrl
     cards: Card[]
     updateSocket: (action: Actions) => void
 }
 
-const RoomVoting = ({ user, voting, cards, updateSocket }: Props) => {
+const RoomVoting = ({ user, queue, cards, updateSocket }: Props) => {
 
-    const theme = useTheme()
+    const { post } = useApi()
 
-    const [votedCard, setVotedCard] = useState<number>(-1)
+    const [votedCard, setVotedCard] = useState<{id: number, reqId: number}>({
+        id: -1,
+        reqId: -1
+    })
 
-    useEffect(() => {
-        setVotedCard(-1)
-    }, [])
+    const vote = (card: Card) => {
+        const payload = {
+            story_id:queue.story?.id,
+            room_card_id: card.votingId,
+            ...(votedCard.reqId !== -1) && {
+                id: votedCard.reqId
+            }
+        }
 
-    const vote = (id: number) => {
-        setVotedCard(id)
-        updateSocket('voting')
+        post('/vote', payload, true)
+            .then(data => {
+                setVotedCard({
+                    id: card.votingId,
+                    reqId: data.id
+                })
+                updateSocket('queue')
+            })
+            .catch(err => console.log(err))
     }
 
     return (
         <div className={styles.cards}>
-            { voting === null
+            { queue.status === 'waiting'
                 ? (
                     <Tooltip title='Wait until the voting starts' arrow placement='top'>
                         <div className={styles.backdrop}></div>
@@ -43,7 +59,7 @@ const RoomVoting = ({ user, voting, cards, updateSocket }: Props) => {
                 variant='h5' 
                 align='center'
             >
-                { voting?.name || '...' }
+                { queue.story?.title || '...' }
             </Typography>
 
             <div className={styles.grid}>
@@ -52,8 +68,8 @@ const RoomVoting = ({ user, voting, cards, updateSocket }: Props) => {
                         key={card.id} 
                         { ...!user?.email 
                             ? {
-                                className: `${styles.card} ${votedCard === card.votingId ? styles.active : ''}`,
-                                onClick: () => vote(card.votingId)
+                                className: `${styles.card} ${votedCard.id === card.votingId ? styles.active : ''}`,
+                                onClick: () => vote(card)
                             }
                             :
                             { className: styles.card }

@@ -4,16 +4,30 @@ import useApi from '../../../../hooks/useApi'
 import { useSnackbar } from '../../../../hooks/useSnackbar'
 import { Actions } from '../../../../types/room/actions'
 import { Participant } from '../../../../types/room/participant'
+import { QueueCtrl } from '../../../../types/room/queue-ctrl'
 import { User } from '../../../../types/user'
 import styles from './styles.module.scss'
 
 type Props = {
     participants: Participant[]
+    queue: QueueCtrl
     updateSocket: (action: Actions) => void
     user: User | null
 }
 
-const RoomParticipants = ({ participants, updateSocket, user }: Props) => {
+const RoomParticipants = ({ participants, queue, updateSocket, user }: Props) => {
+
+    const userType = user?.email ? 'owner' : 'participant'
+
+    const votes = (() => {
+        if(queue?.story)
+            return queue.story.storyParticipants.reduce((acc, cur) => {
+                acc[cur.participant.id] = (cur as any).roomCard.card.value
+                return acc
+            }, {} as any)
+        else
+            return {}
+    })()
 
     const { createSnack } = useSnackbar()
 
@@ -43,11 +57,14 @@ const RoomParticipants = ({ participants, updateSocket, user }: Props) => {
                     { participants && participants.length > 0 && participants.map((p, index) => (
                         <Fragment key={p.id}>
                             <ListItem className={styles.participant}>
-                                <Typography variant='body1' {...user?.email && { onClick: openMenu }}>
+                                <Typography variant='body1' {...(userType === 'owner') && { onClick: openMenu }}>
                                     { p.nickname }
                                 </Typography>
                                 <Typography variant='h6'>
-                                    {'<aqui vem o voto>'}
+                                    { (userType === 'owner' || queue.status === 'completed') 
+                                        ? (votes[p.id] || '...')
+                                        : '...'
+                                    }
                                 </Typography>
                             </ListItem>
                             <Menu anchorEl={anchor} open={Boolean(anchor)} onClose={closeMenu}>

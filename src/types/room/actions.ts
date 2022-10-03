@@ -1,1 +1,1 @@
-export type Actions = 'participants' | 'stories' | 'voting'
+export type Actions = 'participants' | 'stories' | 'queue'
