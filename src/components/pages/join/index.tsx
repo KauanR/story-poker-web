@@ -93,6 +93,7 @@ const Join = ({ roomId, title }: Props) => {
                                         { name: 'Observer', value: 'observer' }
                                     ]}
                                     fullWidth
+                                    disabled
                                 />
 
                                 <div className={styles.submit}>

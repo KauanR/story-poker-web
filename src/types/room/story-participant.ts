@@ -4,5 +4,7 @@ import { Participant } from './participant'
 export type StoryParticipant = {
     id: string
     participant: Participant
-    roomCard: Card
+    roomCard: {
+        card: Card
+    }
 }

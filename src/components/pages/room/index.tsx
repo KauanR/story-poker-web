@@ -69,7 +69,7 @@ const Room = (roomAttr: RoomAttr) => {
                                 />
                             )
                             : (
-                                <RoomChart/>
+                                <RoomChart queue={queue} />
                             )
                         }
                         
