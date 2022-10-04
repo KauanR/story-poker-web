@@ -14,7 +14,7 @@ const RoomChart = ({ queue }: Props) => {
     useEffect(() => {
         const votesPercent = [['Card', 'Qntd']] as any
 
-        queue?.story?.storyParticipants.forEach(vote => {
+        queue?.story?.storyParticipants.forEach((vote: any) => {
             const voteIndex = votesPercent
                 .findIndex((votePercent: any) => votePercent[0] === vote.roomCard.card.value)
 
