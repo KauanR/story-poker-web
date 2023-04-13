@@ -16,7 +16,7 @@ As tecnologias usadas no desenvolvimento foram:
 ### Pré-requisitos
 Você precisará apenas do [NodeJS](https://nodejs.org/en/download/) e um gerenciador de pacotes de sua escolha.
 
-### Installation
+### Instalação
 1. Clone o repositório
    ```sh
    git clone https://github.com/KauanR/story-poker-web
@@ -30,8 +30,8 @@ Você precisará apenas do [NodeJS](https://nodejs.org/en/download/) e um gerenc
    npm run dev
    ```
 
-## Usage
+## Utilização
 As telas são bem autoexplicativas, mas a aplicação precisa ser utilizada juntamente com seu back-end, o [Story Poker API](https://github.com/DouglasAndre25/story-poker-api).
 
-## License
+## Licensa
 Distribuído sob a licença MIT. Veja`LICENSE.txt` para mais informações.
