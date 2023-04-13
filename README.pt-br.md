@@ -10,7 +10,7 @@ Feita como requisito parcial à obtenção do grau de bacharelado na disciplina 
 As tecnologias usadas no desenvolvimento foram:
 * [NextJS](https://nextjs.org/)
 * [MUI](https://mui.com/)
-* [React useWebSocket] (https://www.npmjs.com/package/react-use-websocket)
+* [React useWebSocket](https://www.npmjs.com/package/react-use-websocket)
 
 ## Começando
 ### Pré-requisitos
