@@ -2,7 +2,7 @@
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/KauanR/story-poker-web/blob/main/README.md)
 [![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/KauanR/story-poker-web/blob/main/README.pt-br.md)
 
-## About
+## Sobre
 Story Poker é uma aplicação web que disponibiliza uma plataforma "Planing Poker" baseada na metodologia Scrum. Ele basicamente permite que os usuários votem simultaneamente no tempo/esforço necessário para concluir a implementação de cada produto. Ele é usado em conjunto com seu back-end, o [Story Poker API](https://github.com/DouglasAndre25/story-poker-api).
 <br/>
 Feita como requisito parcial à obtenção do grau de bacharelado na disciplina de 'Laboratório de Desenvolvimento - URI'
