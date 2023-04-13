@@ -10,7 +10,7 @@ Made as a partial requirement for obtaining a Bachelor's degree in the subject '
 The technologies used in the development were:
 * [NextJS](https://nextjs.org/)
 * [MUI](https://mui.com/)
-* [Web Socket] (https://www.npmjs.com/package/react-use-websocket)
+* [React useWebSocket](https://www.npmjs.com/package/react-use-websocket)
 
 ## Getting Started
 ### Prerequisites
